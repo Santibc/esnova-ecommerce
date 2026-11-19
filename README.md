@@ -1,66 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Esnova Market — E-commerce multiempresa con pasarela de pagos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Plataforma de comercio electrónico donde cada empresa tiene su propia tienda, catálogo y stock, con membresías pagadas por pasarela (Wompi).
 
-## About Laravel
+![Tienda pública](docs/screenshots/01-tienda.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Contexto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+El proyecto nació como tienda en línea de productos para el cuidado del cabello y evolucionó a una plataforma donde varias empresas pueden publicar su tienda pagando un plan de membresía, con comisiones para la plataforma.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Funcionalidades
 
-## Learning Laravel
+- **Tienda pública** con buscador, categorías, carrito de compras, registro de clientes y calificaciones de productos.
+- **Pasarela de pagos Wompi** para membresías y compras, con webhook de confirmación y log de transacciones.
+- **Multiempresa:** cada empresa configura su tienda, plantilla visual, logo, portada y SEO (Open Graph / Twitter cards).
+- **Planes de membresía y comisiones** para la plataforma.
+- **Catálogo:** productos con variantes, características, listas de precios e imágenes múltiples; actualización masiva de precios por Excel.
+- **Gestión de stock** con dashboard, movimientos de entrada/salida, productos críticos y reporte de rotación.
+- **Descuentos** automáticos o con código y gestión de compras/envíos.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Backend:** PHP 8, Laravel 9, MySQL/MariaDB
+- **Autenticación y permisos:** Laravel Breeze + spatie/laravel-permission (roles y permisos)
+- **Frontend:** Blade, Livewire, Alpine.js, Tailwind CSS, Bootstrap, DataTables, SweetAlert2
+- **Pagos:** Wompi (Bancolombia)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Capturas
 
-## Laravel Sponsors
+**Administración de productos**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+![Administración de productos](docs/screenshots/03-productos.png)
 
-### Premium Partners
+**Dashboard de stock**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+![Dashboard de stock](docs/screenshots/04-stock.png)
 
-## Contributing
+**Gestión de descuentos**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+![Gestión de descuentos](docs/screenshots/06-descuentos.png)
 
-## Code of Conduct
+## Instalación local
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Requisitos: PHP 8.0+ (con extensiones `gd`, `zip`, `intl`), Composer, Node 18+ y MySQL/MariaDB.
 
-## Security Vulnerabilities
+```bash
+git clone <url-del-repositorio>
+cd esnova
+composer install
+npm install && npm run build
+cp .env.example .env        # configura la conexión a la base de datos
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+La aplicación queda disponible en `http://localhost:8000`. Los seeders crean los roles y datos iniciales (revisa `database/seeders`).
 
-## License
+## Notas
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Proyecto desarrollado para un cliente real y desplegado en producción. Las capturas se tomaron en un entorno local; el historial de este repositorio se depuró para no incluir credenciales ni copias de bases de datos.
+
+## Autor
+
+**Santiago Bellaizán** — Desarrollador Full Stack (Laravel · PHP · MySQL · JavaScript)
+
+- GitHub: [@Santibc](https://github.com/Santibc)
